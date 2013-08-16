@@ -3,6 +3,7 @@ package com.bigfatbrowncat.datetimechoice;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 
 public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnValueChangeListener {
 
+	private static final boolean DEFAULT_VERTICAL = false;
+	
 	private static class SavedState extends BaseSavedState {
 		private static final String FIELD_YEAR = "year";
 		private static final String FIELD_MONTH = "month";
@@ -84,19 +87,22 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 	private Calendar minValue;
 	private Calendar maxValue;
 	
-	private void initLayout(Context context) {
-		// if (!isInEditMode()) {
-		LayoutInflater layoutInflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		layoutInflater.inflate(R.layout.view_date_time_choice, this, true);
+	private void initLayout(Context context, boolean isVertical) {
+		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if (isVertical) {
+			layoutInflater.inflate(R.layout.view_date_time_choice_vertical, this, true);
+		}
+		else
+		{
+			layoutInflater.inflate(R.layout.view_date_time_choice_horizontal, this, true);
+		}
 
+		hour_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.hour_numberSpinEdit);
+		minute_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.minute_numberSpinEdit);
 		day_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.day_numberSpinEdit);
 		month_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.month_numberSpinEdit);
 		year_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.year_numberSpinEdit);
 
-		hour_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.hour_numberSpinEdit);
-		minute_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.minute_numberSpinEdit);
-		
 		month_numberSpinEdit.setValueConverter(new NumberSpinEdit.MonthValueConverter(getContext()));
 		
 		if (!isInEditMode()) {
@@ -111,12 +117,16 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 
 	public DateTimeChoice(Context context) {
 		super(context);
-		initLayout(context);
+		initLayout(context, DEFAULT_VERTICAL);
 	}
 
 	public DateTimeChoice(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		initLayout(context);
+		
+		TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DateTimeChoice, 0, 0);
+		boolean vertical = attributes.getBoolean(R.styleable.DateTimeChoice_vertical, DEFAULT_VERTICAL);
+		
+		initLayout(context, vertical);
 	}
 
 	public Calendar getValue() {
@@ -164,6 +174,13 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 	
 	@Override
 	protected Parcelable onSaveInstanceState() {
+		hour_numberSpinEdit.setId(NO_ID);
+		minute_numberSpinEdit.setId(NO_ID);
+		day_numberSpinEdit.setId(NO_ID);
+		month_numberSpinEdit.setId(NO_ID);
+		year_numberSpinEdit.setId(NO_ID);
+		
+		
 	    Parcelable superState = super.onSaveInstanceState();
 	    SavedState ss = new SavedState(superState);
 

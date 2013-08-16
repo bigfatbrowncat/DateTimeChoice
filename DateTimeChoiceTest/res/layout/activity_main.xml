@@ -1,4 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:datetimechoice="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,12 +11,22 @@
     tools:context=".MainActivity" >
 
     <com.bigfatbrowncat.datetimechoice.DateTimeChoice
-        android:id="@+id/dateTimeChoice1"
+        android:id="@+id/dateTimeChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp" >
+    </com.bigfatbrowncat.datetimechoice.DateTimeChoice>
+
+    <com.bigfatbrowncat.datetimechoice.DateTimeChoice
+        android:id="@+id/dateTimeChoice2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dateTimeChoice"
+        datetimechoice:vertical="true">
     </com.bigfatbrowncat.datetimechoice.DateTimeChoice>
 
 </RelativeLayout>

@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <Button
+    <ImageButton
         android:id="@+id/raise_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_weight="1"
+        android:background="@drawable/spin_button_up"
         android:text="+" />
 
     <EditText
@@ -22,12 +23,13 @@
         android:inputType="number|text"
         android:padding="1dp"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/lower_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_weight="1"
+        android:background="@drawable/spin_button_down"
         android:gravity="center_vertical|center_horizontal"
         android:text="-" />
 

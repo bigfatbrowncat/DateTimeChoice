@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 public class NumberSpinEdit extends LinearLayout implements View.OnClickListener, 
@@ -212,8 +213,8 @@ public class NumberSpinEdit extends LinearLayout implements View.OnClickListener
 	private ValueConverter valueConverter;
 	
 	private EditText number_editText;
-	private Button raise_button;
-	private Button lower_button;
+	private ImageButton raise_button;
+	private ImageButton lower_button;
 	
 	private int ems;
 	private int value;
@@ -351,8 +352,8 @@ public class NumberSpinEdit extends LinearLayout implements View.OnClickListener
 		layoutInflater.inflate(R.layout.view_number_spin_edit, this, true);
 		
 		number_editText = (EditText)findViewById(R.id.number_editText);
-		raise_button = (Button)findViewById(R.id.raise_button);
-		lower_button = (Button)findViewById(R.id.lower_button);
+		raise_button = (ImageButton)findViewById(R.id.raise_button);
+		lower_button = (ImageButton)findViewById(R.id.lower_button);
 		
 		if (!isInEditMode()) {
 			number_editText.addTextChangedListener(this);
