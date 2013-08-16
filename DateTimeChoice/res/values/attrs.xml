@@ -9,6 +9,7 @@
     </declare-styleable>
     <declare-styleable name="DateTimeChoice">
         <attr name="vertical" format="boolean" />
+        <attr name="dateVisible" format="boolean" />
     </declare-styleable>
 
 </resources>

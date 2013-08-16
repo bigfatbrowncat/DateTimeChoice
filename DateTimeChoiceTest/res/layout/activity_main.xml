@@ -16,7 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp" >
+        android:layout_marginTop="16dp" 
+        datetimechoice:dateVisible="false">
     </com.bigfatbrowncat.datetimechoice.DateTimeChoice>
 
     <com.bigfatbrowncat.datetimechoice.DateTimeChoice
@@ -28,5 +29,23 @@
         android:layout_below="@+id/dateTimeChoice"
         datetimechoice:vertical="true">
     </com.bigfatbrowncat.datetimechoice.DateTimeChoice>
+
+    <Button
+        android:id="@+id/demo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateTimeChoice2"
+        android:layout_below="@+id/dateTimeChoice2"
+        android:layout_marginTop="59dp"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/demo_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/demo_button"
+        android:layout_alignBottom="@+id/demo_button"
+        android:layout_toRightOf="@+id/demo_button"
+        android:text="TextView" />
 
 </RelativeLayout>

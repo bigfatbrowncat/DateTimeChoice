@@ -9,7 +9,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnValueChangeListener {
 
@@ -23,7 +25,7 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 		private static final String FIELD_MINUTE = "minute";
 		
 		private Calendar value;
-
+		
 		public Calendar getValue() {
 			return value;
 		}
@@ -84,6 +86,10 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 	private NumberSpinEdit hour_numberSpinEdit;
 	private NumberSpinEdit minute_numberSpinEdit;
 	
+	private RelativeLayout date_relativeLayout;
+	
+	private boolean dateVisible = true;
+
 	private Calendar minValue;
 	private Calendar maxValue;
 	
@@ -102,6 +108,8 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 		day_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.day_numberSpinEdit);
 		month_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.month_numberSpinEdit);
 		year_numberSpinEdit = (NumberSpinEdit)findViewById(R.id.year_numberSpinEdit);
+		
+		date_relativeLayout = (RelativeLayout)findViewById(R.id.date_layout);
 
 		month_numberSpinEdit.setValueConverter(new NumberSpinEdit.MonthValueConverter(getContext()));
 		
@@ -125,8 +133,21 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 		
 		TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DateTimeChoice, 0, 0);
 		boolean vertical = attributes.getBoolean(R.styleable.DateTimeChoice_vertical, DEFAULT_VERTICAL);
+		boolean dateVisible = attributes.getBoolean(R.styleable.DateTimeChoice_dateVisible, true);
+		attributes.recycle();
 		
 		initLayout(context, vertical);
+		
+		setDateVisible(dateVisible);
+	}
+
+	public boolean isDateVisible() {
+		return dateVisible;
+	}
+
+	public void setDateVisible(boolean dateVisible) {
+		this.dateVisible = dateVisible;
+		date_relativeLayout.setVisibility(dateVisible ? View.VISIBLE : View.GONE);
 	}
 
 	public Calendar getValue() {
@@ -179,7 +200,8 @@ public class DateTimeChoice extends LinearLayout implements NumberSpinEdit.OnVal
 		day_numberSpinEdit.setId(NO_ID);
 		month_numberSpinEdit.setId(NO_ID);
 		year_numberSpinEdit.setId(NO_ID);
-		
+
+		date_relativeLayout.setId(NO_ID);
 		
 	    Parcelable superState = super.onSaveInstanceState();
 	    SavedState ss = new SavedState(superState);
