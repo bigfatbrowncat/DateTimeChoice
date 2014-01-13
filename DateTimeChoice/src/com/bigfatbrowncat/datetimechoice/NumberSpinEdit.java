@@ -100,6 +100,8 @@ public class NumberSpinEdit extends LinearLayout implements View.OnClickListener
 		 * Occurs after user has clicked raising button
 		 */
 		public void onRaising(NumberSpinEdit view);
+		
+		public void onValueUpdated(NumberSpinEdit view);
 	}
 	
 	private static class SavedState extends BaseSavedState {
@@ -284,19 +286,19 @@ public class NumberSpinEdit extends LinearLayout implements View.OnClickListener
 			updateEditText = true;
 		}
 		
+		if (valueChangeListener != null && newValue != value) {
+			if (!valueChangeListener.onChanging(this, newValue)) {
+				commit = false;
+				updateEditText = true;
+			}
+		}
+		
 		if (newValue > maxValue) {
 			newValue = maxValue;
 		}
 		
 		if (newValue < minValue) {
 			newValue = minValue;
-		}
-		
-		if (valueChangeListener != null && newValue != value) {
-			if (!valueChangeListener.onChanging(this, newValue)) {
-				commit = false;
-				updateEditText = true;
-			}
 		}
 		
 		if (commit) {
@@ -415,7 +417,8 @@ public class NumberSpinEdit extends LinearLayout implements View.OnClickListener
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		updateValue();	
+		updateValue();
+		if (this.valueChangeListener != null) valueChangeListener.onValueUpdated(this);
 	}
 	
 	@Override
